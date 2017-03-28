@@ -12,9 +12,7 @@ public class Label extends BaseElement {
 		super(string, name);
 	}
 
-	public Label(By locatorStageA, By locatorStageB, String name) {
-		super(locatorStageA, locatorStageB, name);
-	}
+	
 
 	public Label(By locator) {
 		super(locator);

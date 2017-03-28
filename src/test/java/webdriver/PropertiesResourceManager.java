@@ -9,8 +9,6 @@ import java.util.Properties;
  */
 public final class PropertiesResourceManager {
 
-    private static final Logger logger = Logger.getInstance();
-
 	/**
 	 * @uml.property name="properties"
 	 */
@@ -55,10 +53,10 @@ public final class PropertiesResourceManager {
 				objProperties.load(inStream);
 				inStream.close();
 			} catch (IOException e) {
-				logger.info(this, e);
+				e.printStackTrace();
 			}
 		} else {
-			logger.error(String.format("Resource \"%1$s\" could not be found", resourceName));
+			System.err.println(String.format("Resource \"%1$s\" could not be found", resourceName));
 		}
 		return objProperties;
 	}

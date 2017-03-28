@@ -1,7 +1,6 @@
 package webdriver;
 
-import junit.framework.Assert;
-
+import org.testng.Assert;
 import org.testng.Reporter;
 
 /**
@@ -9,36 +8,29 @@ import org.testng.Reporter;
  */
 public final class Logger {
 
+	/**
+	 * Locale
+	 */
+	public enum Locale {
+		/**
+		 * @uml.property name="eN"
+		 * @uml.associationEnd
+		 */
+		EN, /**
+		 * @uml.property name="rU"
+		 * @uml.associationEnd
+		 */
+		RU
+	}
 
-	private static final Locale DEF_LOCALE = Locale.RU;
+	private static final Locale DEF_LOCALE = Locale.EN;
 	private static final String AQA_LOCALE = "aqa.locale";
-	private static final org.apache.log4j.Logger LOG4J = org.apache.log4j.Logger.getLogger(Logger.class);
+	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Logger.class);
 	private static Logger instance = null;
 	public static final String LOG_DELIMITER = "::";
 	// This flag allows/restricts logging step names
 	private static boolean logSteps = true;
 	private static PropertiesResourceManager localManager = new PropertiesResourceManager(String.format("localization/loc_%1$s.properties", System.getProperty(AQA_LOCALE, DEF_LOCALE.toString()).toLowerCase()));
-
-    /**
-     * Constructor
-     */
-    private Logger() {
-    }
-
-    /**
-     * Locale
-     */
-    public enum Locale {
-        /**
-         * @uml.property name="eN"
-         * @uml.associationEnd
-         */
-        EN, /**
-         * @uml.property name="rU"
-         * @uml.associationEnd
-         */
-        RU
-    }
 
 	/**
 	 * Gets locale
@@ -63,8 +55,14 @@ public final class Logger {
 	 */
 	public void infoLoc(final String msg) {
 		String message = localManager.getProperty(msg, msg);
-		LOG4J.info(message);
+		logger.info(message);
 		Reporter.log(message + "<br>");
+	}
+
+	/**
+	 * Constructor
+	 */
+	private Logger() {
 	}
 
 	/**
@@ -198,22 +196,9 @@ public final class Logger {
 	 * @param message Message
 	 */
 	public void debug(final String message) {
-		LOG4J.debug(message);
-	}
-
-	public void debug(Object message) {
-		LOG4J.debug(message);
-	}
-
-    public void debug(Object message, Throwable throwable) {
-        LOG4J.debug(message, throwable);
-    }
-
-	public void info(Object message, Throwable throwable) {
-		LOG4J.info(message, throwable);
-	}
-	public void info(Object message) {
-		LOG4J.info(message);
+		logger.debug(message);
+		//msg = "<div class=\"skipped\">" + message + "</div>"; // yellow color from reportng css
+		//Reporter.log(msg + "<br>");
 	}
 
 	/**
@@ -221,7 +206,7 @@ public final class Logger {
 	 * @param message Message
 	 */
 	public void info(final String message) {
-		LOG4J.info(message);
+		logger.info(message);
 		Reporter.log(message + "<br>");
 	}
 
@@ -231,7 +216,7 @@ public final class Logger {
 	 */
 	public void warn(final String message) {
 		String msg = message;
-		LOG4J.warn(message);
+		logger.warn(message);
 		msg = "<div class=\"skipped\">" + msg + "</div>"; // yellow color from reportng css
 		Reporter.log(msg + "<br>");
 	}
@@ -242,7 +227,7 @@ public final class Logger {
 	 */
 	public void warnRed(final String message) {
 		String msg = message;
-		LOG4J.warn(msg);
+		logger.warn(msg);
 		msg = "<div class=\"failedConfig\">" + msg + "</div>"; // red color from reportng css
 		Reporter.log(msg + "<br>");
 	}
@@ -253,7 +238,7 @@ public final class Logger {
 	 */
 	public void error(final String message) {
 		String msg = message;
-		LOG4J.error(message);
+		logger.error(message);
 		msg = "<div class=\"failedConfig\">" + msg + "</div>"; // red color from reportng css
 		Reporter.log(msg + "<br>");
 	}
@@ -264,9 +249,9 @@ public final class Logger {
 	 */
 	public void fatal(final String message) {
 		String msg = message;
-		LOG4J.fatal(message);
+		logger.fatal(message);
 		msg = "<div class=\"failedConfig\">" + msg + "</div>"; // red color from reportng css
 		Reporter.log(msg + "<br>");
-		Assert.assertTrue(false);
+		Assert.assertTrue(false, message);
 	}
 }

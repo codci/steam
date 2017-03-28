@@ -30,9 +30,7 @@ public class Button extends BaseElement {
     }
 
 
-	public Button(By locatorStageA, By locatorStageB, String name) {
-		super(locatorStageA, locatorStageB, name);
-	}
+	
 
 
 	public Button(By locator) {
