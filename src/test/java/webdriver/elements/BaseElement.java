@@ -13,6 +13,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
@@ -24,6 +25,8 @@ import webdriver.BaseEntity;
 import webdriver.Browser;
 
 import webdriver.Logger;
+
+import javax.swing.*;
 
 /**
  * Abstract class, describing base element.
@@ -242,7 +245,16 @@ public abstract class BaseElement extends BaseEntity {
 		element.click();
 	};
 
-	
+	/**
+	 * Move to element.
+	 */
+	public void moveToElement() {
+		waitForIsElementPresent();
+		// info(getLoc("loc.clicking"));
+		new Actions(browser.getDriver()).moveToElement(element).perform();
+	};
+
+
 	
 
 	/**
