@@ -41,7 +41,7 @@ public abstract class BrowserFactory {
 		case CHROME:
 			DesiredCapabilities cp1 = DesiredCapabilities.chrome();
 			cp1.setCapability("chrome.switches", Arrays.asList("--disable-popup-blocking"));
-			URL myTestURL = ClassLoader.getSystemResource("chromedriver.exe");
+			URL myTestURL = ClassLoader.getSystemResource("chromedriver");
 			try {
 				myFile = new File(myTestURL.toURI());
 			} catch (URISyntaxException e1) {
