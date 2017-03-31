@@ -26,8 +26,6 @@ import webdriver.Browser;
 
 import webdriver.Logger;
 
-import javax.swing.*;
-
 /**
  * Abstract class, describing base element.
  */
@@ -317,9 +315,14 @@ public abstract class BaseElement extends BaseEntity {
 		return false;
 	}
 
-	
-	
-	
-	
+
+	static public List<WebElement> getListOfElements(String loc) {
+		try {
+			return browser.getDriver().findElements(By.xpath(loc));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	}
 
